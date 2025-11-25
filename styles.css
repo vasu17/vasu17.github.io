@@ -20,6 +20,9 @@
     --glass-border: rgba(255, 255, 255, 0.25);
     --glass-border-strong: rgba(212, 175, 55, 0.45);
     --glass-shadow: 0 25px 60px rgba(5, 0, 15, 0.55);
+    --box-border-color: rgba(212, 175, 55, 0.35);
+    --box-shadow-soft: 0 8px 18px rgba(5, 0, 15, 0.35);
+    --box-shadow-hover: 0 16px 28px rgba(5, 0, 15, 0.45);
 
     /* Accent Variants */
     --gradient-accent-1: rgba(117, 20, 199, 0.25);
@@ -79,6 +82,9 @@ body.theme-personal {
     --accent-shadow: rgba(166, 18, 38, 0.3);
     --accent-shadow-strong: rgba(166, 18, 38, 0.5);
     --secondary-glow: rgba(0, 229, 255, 0.25);
+    --box-border-color: rgba(0, 229, 255, 0.35);
+    --box-shadow-soft: 0 8px 18px rgba(10, 0, 5, 0.35);
+    --box-shadow-hover: 0 16px 28px rgba(10, 0, 5, 0.45);
 }
 
 /* Reset & Base */
@@ -367,8 +373,8 @@ body.menu-open {
     background: var(--glass-surface-strong);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
+    border: 1px solid var(--box-border-color);
+    box-shadow: var(--box-shadow-soft);
     backdrop-filter: blur(22px) saturate(150%);
     -webkit-backdrop-filter: blur(22px) saturate(150%);
     position: relative;
@@ -546,8 +552,8 @@ body.menu-open {
     background: var(--glass-surface-strong);
     padding: var(--spacing-lg);
     border-radius: var(--radius-lg);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
+    border: 1px solid var(--box-border-color);
+    box-shadow: var(--box-shadow-soft);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     position: relative;
@@ -580,17 +586,17 @@ body.menu-open {
     background: var(--glass-surface);
     padding: var(--spacing-lg);
     border-radius: var(--radius-md);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--box-border-color);
     transition: var(--transition-default);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    box-shadow: var(--box-shadow-soft);
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
 }
 
 .research-card:hover {
     transform: translateY(-5px);
-    border-color: var(--glass-border-strong);
-    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+    border-color: var(--color-secondary);
+    box-shadow: var(--box-shadow-hover);
 }
 
 .research-card h3 {
@@ -618,16 +624,17 @@ body.menu-open {
     background: var(--glass-surface);
     border-radius: var(--radius-full);
     color: var(--color-text-primary);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--box-border-color);
     backdrop-filter: blur(16px) saturate(140%);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--box-shadow-soft);
 }
 
 .contact-item:hover {
     background-color: var(--accent-overlay);
     color: var(--color-on-primary);
-    border-color: var(--glass-border-strong);
+    border-color: var(--color-secondary);
+    box-shadow: var(--box-shadow-hover);
 }
 
 .contact-item .icon {
@@ -696,16 +703,16 @@ body.menu-open {
     border-radius: var(--radius-md);
     overflow: hidden;
     transition: var(--transition-default);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--box-border-color);
+    box-shadow: var(--box-shadow-soft);
     backdrop-filter: blur(18px) saturate(150%);
     -webkit-backdrop-filter: blur(18px) saturate(150%);
 }
 
 .video-card:hover {
     transform: translateY(-4px);
-    border-color: var(--glass-border-strong);
-    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.45);
+    border-color: var(--color-secondary);
+    box-shadow: var(--box-shadow-hover);
 }
 
 .video-thumbnail {
@@ -770,17 +777,18 @@ body.menu-open {
     padding: var(--spacing-md);
     background: var(--glass-surface);
     border-radius: var(--radius-md);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--box-border-color);
     transition: var(--transition-default);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    box-shadow: var(--box-shadow-soft);
     backdrop-filter: blur(16px) saturate(140%);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
 }
 
 .grant-item:hover {
     background-color: var(--accent-surface-hover);
-    border-color: var(--glass-border-strong);
+    border-color: var(--color-secondary);
     transform: translateX(6px);
+    box-shadow: var(--box-shadow-hover);
 }
 
 .grant-date {
