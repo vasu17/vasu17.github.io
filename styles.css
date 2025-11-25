@@ -46,8 +46,8 @@ body.theme-personal {
     /* Vibrant Red */
     --color-primary-container: #A61226;
     --color-on-primary: #FFFFFF;
-    --color-secondary: #FFD700;
-    /* Bright Gold */
+    --color-secondary: #00E5FF;
+    /* Cyan */
     --color-on-secondary: #2E0B15;
 }
 
@@ -81,6 +81,7 @@ ul {
 h1,
 h2,
 h3,
+h4,
 .logo {
     font-family: var(--font-display);
     font-weight: 700;
@@ -316,10 +317,25 @@ body.theme-personal .btn-primary:hover {
     background: radial-gradient(circle at 30% 30%, var(--color-primary), var(--color-background));
     box-shadow: 0 0 60px rgba(117, 20, 199, 0.2);
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 body.theme-personal .visual-circle {
     box-shadow: 0 0 60px rgba(217, 30, 54, 0.2);
+}
+
+.visual-text {
+    font-family: var(--font-display);
+    font-size: 12rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    z-index: 2;
+    line-height: 1;
+    padding-bottom: 20px;
+    user-select: none;
 }
 
 .visual-circle::after {
