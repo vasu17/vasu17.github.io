@@ -21,15 +21,9 @@
 </head>
 
 <body>
+    <a href="personal.html" class="theme-toggle-btn" aria-label="Switch to Personal">→ personal</a>
     <header class="site-header">
         <nav class="navbar">
-            <a href="#" class="logo">Vasu </a>
-            <button id="theme-toggle" class="theme-toggle-btn">Switch to Personal</button>
-            <button class="mobile-menu-btn" aria-label="Toggle navigation">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -52,7 +46,17 @@
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="visual-circle">
+                <div class="visual-shield">
+                    <svg class="shield-svg" viewBox="0 0 100 90" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="shield-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="var(--color-primary)" />
+                                <stop offset="100%" stop-color="var(--color-background)" />
+                            </linearGradient>
+                        </defs>
+                        <polygon points="15,0.5 85,0.5 99.5,22 50,89.5 0.5,22" fill="url(#shield-grad)"
+                            stroke="var(--glass-border-strong)" stroke-width="1.2" stroke-linejoin="round" />
+                    </svg>
                     <span class="visual-text">V</span>
                 </div>
             </div>
@@ -66,32 +70,51 @@
                     I am Vasudevan Sundararaman (Vasu), I am a Ph.D Student at Masaryk University under Prof. Rikard von
                     Unge.
                 </p>
-                <p class="about-text">
-                    My work... will insert this later
-                </p>
-
+            </div>
+        </section>
+        <!-- Outreach section -->
+        <section id="outreach" class="section-container">
+            <h2 class="section-title">Outreach</h2>
+            <div class="outreach-grid">
                 <div class="subsection">
                     <h3 class="subsection-title">TheorTea</h3>
                     <p class="about-text">
-                        I am also one of the hosts of <a
-                            href="https://www.physics.muni.cz/pro-studenty/predmety/theortea" target="_blank"
-                            class="text-link">TheorTea</a>, a seminar series for students and researchers.
+                        I am one of the hosts of <a href="https://www.physics.muni.cz/pro-studenty/predmety/theortea"
+                            target="_blank" class="text-link">TheorTea</a>, a seminar series for students and
+                        researchers. We have talks every semeter with speakers from different institutes giving the talk
+                        both in-person and online. Do drop in an email if you would like to present your work!
+                    </p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">Axis Mundi</h3>
+                    <p class="about-text">
+                        I am also one of the organsizers and the web designer of <a href="https://axismundi.vercel.app/"
+                            target="_blank" class="text-link">Axis Mundi</a>, a Brno based public outreach series for
+                        general audiance with talks given by members of the local scientific community.
                     </p>
                 </div>
             </div>
         </section>
-
         <!-- Research Section -->
         <section id="research" class="section-container">
             <h2 class="section-title">Research Interests</h2>
             <div class="research-grid">
                 <div class="research-card">
-                    <h3>Matrix models in 2D</h3>
-                    <p>Ising coupled to 2D gravity stuff, will Insert later.</p>
+                    <h3>Non invertible symmetry in 2D gravity systerms</h3>
+                    <p>Ising coupled to 2D gravity stuff, was a rich playground to test the limits of non crital strings
+                        and push our understanding of two matrix models in a nice physical system. It has been shown
+                        that Ising coupled to gravity admits Kramers Wannier line at criticality as a non-invertible
+                        symmetry. Our aim is to study and analyse this system and the fate of non invertible symmetries
+                        when take non perturbative effects into account. </p>
                 </div>
                 <div class="research-card">
-                    <h3>2D SUGRA </h3>
-                    <p>Coupling semi-chiral matter field to N=2, 2D SUGRA. Will add details later</p>
+                    <h3>Semi-chiral matter in 2D-SUGRA</h3>
+                    <p>The rich playground of &#119977=2 supergravity have been througly investigated through looking
+                        coupling of chiral matter field in superspace formalism. To a large extent via the magic of
+                        mirror symmtery, one can extend many of the physical reslts to twisted chiral sector as well.
+                        However, the coupling of semi-chiral matter fields have largely been unexplored, and our aim is
+                        to try and develop a roboust framework to study these systems.
+                    </p>
                 </div>
             </div>
 
@@ -121,24 +144,31 @@
         <!-- Grant Section -->
         <section id="grants" class="section-container">
             <h2 class="section-title">Grants & Awards</h2>
-            <div class="grant-item">
-                <span class="grant-date">June 2025-</span>
-                <p class="grant-title">Czech Science Foundation (GAČR) grant "Dualities and higher derivatives"
-                    (GA23-06498S)</p>
-            </div>
-            <div class="grant-item">
-                <span class="grant-date">Feb 2025 - March 2025</span>
-                <p class="grant-title">Horizon Europe Framework Programme (HORIZON), MSCA Staff Exchanges 2021
-                    (HORIZON-MSCA-2021-SE-01), Project ID: 101086123</p>
-            </div>
-            <div class="grant-item">
-                <span class="grant-date">2023-2024</span>
-                <p class="grant-title">Czech Science Foundation (GAČR) grant "Dualities and higher derivatives"
-                    (GA23-06498S).</p>
-            </div>
-            <div class="grant-item">
-                <span class="grant-date">2017-2022</span>
-                <p class="grant-title">KVPY</p>
+            <div class="grants-list">
+                <div class="grant-item">
+                    <span class="grant-date">Jan 2026</span>
+                    <p class="grant-title">Czech Science Foundation (GAČR) grant "On and Off-shell Superspace
+                        Representations" (GA26-23375S) </p>
+                </div>
+                <div class="grant-item">
+                    <span class="grant-date">June 2025-Dec 2025</span>
+                    <p class="grant-title">Czech Science Foundation (GAČR) grant "Dualities and higher derivatives"
+                        (GA23-06498S)</p>
+                </div>
+                <div class="grant-item">
+                    <span class="grant-date">Feb 2025 - March 2025</span>
+                    <p class="grant-title">Horizon Europe Framework Programme (HORIZON), MSCA Staff Exchanges 2021
+                        (HORIZON-MSCA-2021-SE-01), Project ID: 101086123</p>
+                </div>
+                <div class="grant-item">
+                    <span class="grant-date">2023-2024</span>
+                    <p class="grant-title">Czech Science Foundation (GAČR) grant "Dualities and higher derivatives"
+                        (GA23-06498S).</p>
+                </div>
+                <div class="grant-item">
+                    <span class="grant-date">2017-2022</span>
+                    <p class="grant-title">KVPY grant for students pursuing Bachelors and Masters in science</p>
+                </div>
             </div>
         </section>
 
@@ -162,9 +192,6 @@
         </section>
     </main>
 
-    <footer class="site-footer">
-        <p>&copy; 2025 Vasudevan Sundararaman. All rights reserved.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>

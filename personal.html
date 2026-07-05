@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vasu | Personal</title>
     <meta name="description" content="Personal interests and hobbies of Vasudevan Sundararaman.">
-    <link rel="icon" type="image/png" href="favicon2.png">
+    <link rel="icon" type="image/png" href="favicon.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,15 +20,9 @@
 </head>
 
 <body class="theme-personal">
+    <a href="index.html" class="theme-toggle-btn" aria-label="Switch to Work">→ work</a>
     <header class="site-header">
         <nav class="navbar">
-            <a href="index.html" class="logo">Vasu</a>
-            <a href="index.html" class="theme-toggle-btn">Switch to Work</a>
-            <button class="mobile-menu-btn" aria-label="Toggle navigation">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#hobbies">Hobbies</a></li>
@@ -43,15 +37,25 @@
         <section id="home" class="hero-section">
             <div class="hero-content">
                 <h1 class="hero-title">Beyond Physics</h1>
-                <p class="hero-subtitle">Voracious reader, gamer and I lost my train of thought :( </p>
-                <p class="hero-university">Life outside the lab?</p>
+                <p class="hero-subtitle">Voracious reader, gamer and I lost my train of thought... (╯°□°)╯︵ ┻━┻ </p>
+                <p class="hero-university">Life outside the University? Lol</p>
                 <div class="hero-actions">
                     <a href="#projects" class="btn btn-primary">View Projects</a>
                     <a href="#hobbies" class="btn btn-outlined">My Hobbies</a>
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="visual-circle">
+                <div class="visual-shield">
+                    <svg class="shield-svg" viewBox="0 0 100 90" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="shield-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="var(--color-primary)" />
+                                <stop offset="100%" stop-color="var(--color-background)" />
+                            </linearGradient>
+                        </defs>
+                        <polygon points="15,0.5 85,0.5 99.5,22 50,89.5 0.5,22" fill="url(#shield-grad)"
+                            stroke="var(--glass-border-strong)" stroke-width="1.2" stroke-linejoin="round" />
+                    </svg>
                     <span class="visual-text">V</span>
                 </div>
             </div>
@@ -64,12 +68,12 @@
                 <div class="research-card">
                     <h3>Tech Stuff</h3>
                     <p>Yes, I am that Indian guy. I used to test software and unreleased devices for Oneplus. Check out
-                        my Telegram bot code for notifying you of daily posts! Check it out </p>
+                        my Telegram bot code for notifying you of daily posts! </p>
                 </div>
                 <div class="research-card">
                     <h3>Cooking</h3>
-                    <p>I LOVE to cook and am open to try all sorts of new and weird dishes. Favorite cuisine is Italian
-                        and Mexican.</p>
+                    <p>I LOVE to cook and am open to try all sorts of new and weird dishes. Favorite cuisine is easy on
+                        weekday and experimental on weekends.</p>
                 </div>
                 <div class="research-card">
                     <h3>Gaming</h3>
@@ -117,15 +121,12 @@
             <h2 class="section-title">Photo Gallery</h2>
             <div class="about-card">
                 <p class="about-text" style="text-align: center;">
-                    [Photo Gallery Coming Soon?]
+                    Photos of me or what I do doesn't fit with the theme of the website
                 </p>
             </div>
         </section>
     </main>
 
-    <footer class="site-footer">
-        <p>&copy; 2025 Vasudevan Sundararaman. All rights reserved.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
