@@ -366,6 +366,18 @@ body.theme-personal .theme-toggle-btn:hover {
     clip-path: polygon(15% 0%, 85% 0%, 100% 25%, 50% 100%, 0% 25%);
     opacity: 0.15;
     z-index: -1;
+    animation: shieldPulse 4s infinite ease-in-out;
+}
+
+@keyframes shieldPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.2;
+    }
+    50% {
+        transform: scale(1.06);
+        opacity: 0.05;
+    }
 }
 
 /* Sections */
@@ -521,12 +533,26 @@ body.theme-personal .theme-toggle-btn:hover {
 
 .text-link {
     color: var(--color-secondary);
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    text-decoration: none;
+    border-bottom: 1px dashed var(--color-secondary);
+    padding-bottom: 2px;
+    transition: var(--transition-default);
 }
 
 .text-link:hover {
+    color: var(--color-text-primary);
+    border-bottom: 1px solid var(--color-primary);
+}
+
+/* Personal theme overrides for hyperlinks */
+body.theme-personal .text-link {
     color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+body.theme-personal .text-link:hover {
+    color: var(--color-text-primary);
+    border-bottom-color: var(--color-secondary);
 }
 
 .video-grid {
