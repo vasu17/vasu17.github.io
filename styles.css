@@ -349,7 +349,7 @@ body.theme-personal .theme-toggle-btn:hover {
     font-family: var(--font-display);
     font-size: 12rem;
     font-weight: 700;
-    color: var(--color-secondary);
+    color: #FFE600; /* Vibrant Yellow */
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     z-index: 2;
     line-height: 1;

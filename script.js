@@ -20,7 +20,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Colors
     const EDGE_R = 160, EDGE_G = 20, EDGE_B = 35;
-    const CURR_R = 0,   CURR_G = 229, CURR_B = 255;
+
+    // Helper to convert HSL to RGB
+    function hslToRgb(h, s, l) {
+        s /= 100;
+        l /= 100;
+        const k = n => (n + h / 30) % 12;
+        const a = s * Math.min(l, 1 - l);
+        const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1));
+        return [
+            Math.round(255 * f(0)),
+            Math.round(255 * f(8)),
+            Math.round(255 * f(4))
+        ];
+    }
 
     let adjacency = new Map();
     let glowMap   = new Map();   // grid key → current glow intensity [0,1]
@@ -107,6 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
             this.head  = 0;                          // head position along path (screen px)
             this.speed = 0.7 + Math.random() * 0.5; // px per frame
             this.alive = true;
+            this.hue   = Math.floor(Math.random() * 360);
+            const rgb  = hslToRgb(this.hue, 100, 50);
+            this.r     = rgb[0];
+            this.g     = rgb[1];
+            this.b     = rgb[2];
+            this.thicknessFactor = 1.0;
         }
 
         update() {
@@ -159,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const td = Math.max(0, this.head - this.segLen);
             for (let i = 0; i < this.path.length; i++) {
                 if (this.sdist[i] >= td && this.sdist[i] <= hd) {
-                    map.set(`${this.path[i].c},${this.path[i].r}`, true);
+                    map.set(`${this.path[i].c},${this.path[i].r}`, { r: this.r, g: this.g, b: this.b });
                 }
             }
         }
@@ -167,10 +186,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Explosion class for colliding currents ────────────────────────────────
     class CollisionExplosion {
-        constructor(x, y, t) {
+        constructor(x, y, t, r, g, b) {
             this.x = x;
             this.y = y;
             this.t = t;
+            this.r = r;
+            this.g = g;
+            this.b = b;
             this.radius = 2;
             this.maxRadius = 15 + t * 20;
             this.opacity = 1.0;
@@ -208,12 +230,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         draw(cContext) {
-            // Draw expanding cyan ring
+            // Draw expanding ring
             cContext.beginPath();
             cContext.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            cContext.strokeStyle = `rgba(${CURR_R},${CURR_G},${CURR_B},${Math.max(0, this.opacity * 0.8)})`;
+            cContext.strokeStyle = `rgba(${this.r},${this.g},${this.b},${Math.max(0, this.opacity * 0.8)})`;
             cContext.lineWidth = 1 + this.t * 2;
-            cContext.shadowColor = `rgb(${CURR_R},${CURR_G},${CURR_B})`;
+            cContext.shadowColor = `rgb(${this.r},${this.g},${this.b})`;
             cContext.shadowBlur = this.opacity * 10 * this.t;
             cContext.stroke();
             cContext.shadowBlur = 0;
@@ -223,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (p.alpha <= 0) continue;
                 cContext.beginPath();
                 cContext.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                cContext.fillStyle = `rgba(${CURR_R},${CURR_G},${CURR_B},${p.alpha})`;
+                cContext.fillStyle = `rgba(${this.r},${this.g},${this.b},${p.alpha})`;
                 cContext.fill();
             }
         }
@@ -294,14 +316,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     const collisionThreshold = 14 * ((pos1.t + seg.t) / 2);
 
                     if (dist < collisionThreshold) {
-                        p1.alive = false;
+                        // Merge! p2 is absorbed into p1
                         p2.alive = false;
-                        
-                        // Explosion at collision spot
+
+                        // Add colors
+                        p1.r = Math.min(255, p1.r + p2.r);
+                        p1.g = Math.min(255, p1.g + p2.g);
+                        p1.b = Math.min(255, p1.b + p2.b);
+
+                        // Make the pulse thicker and faster
+                        p1.thicknessFactor = Math.min(3.5, p1.thicknessFactor + 0.6);
+                        p1.speed = Math.min(2.5, p1.speed + 0.25);
+
+                        // Explosion at collision spot using the merged color
                         const cx = (pos1.x + seg.x) / 2;
                         const cy = (pos1.y + seg.y) / 2;
                         const ct = (pos1.t + seg.t) / 2;
-                        explosions.push(new CollisionExplosion(cx, cy, ct));
+                        explosions.push(new CollisionExplosion(cx, cy, ct, p1.r, p1.g, p1.b));
                         break; // exit segment loop
                     }
                 }
@@ -331,10 +362,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Smooth glow intensity transition.
                 const target = active.has(key) ? 1 : 0;
-                let   glow   = glowMap.get(key) || 0;
-                if      (glow < target) glow = Math.min(target, glow + 0.07);
-                else if (glow > target) glow = Math.max(target, glow - 0.035);
-                glowMap.set(key, glow);
+                let   glowState = glowMap.get(key) || { intensity: 0, r: 0, g: 0, b: 0 };
+                if (target === 1) {
+                    const activeColor = active.get(key);
+                    glowState.intensity = Math.min(1.0, glowState.intensity + 0.07);
+                    glowState.r = activeColor.r;
+                    glowState.g = activeColor.g;
+                    glowState.b = activeColor.b;
+                } else {
+                    glowState.intensity = Math.max(0.0, glowState.intensity - 0.035);
+                }
+                glowMap.set(key, glowState);
 
                 // Base dim-red ring — scales in size and opacity with perspective depth.
                 ctx.beginPath();
@@ -343,14 +381,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.lineWidth   = 0.5 + proj.t * 0.5;
                 ctx.stroke();
 
-                // Cyan glow ring — fades in/out with glow intensity.
-                if (glow > 0.01) {
+                // Glow ring — fades in/out with glow intensity.
+                if (glowState.intensity > 0.01) {
                     ctx.beginPath();
                     ctx.arc(proj.x, proj.y, proj.nodeR, 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(${CURR_R},${CURR_G},${CURR_B},${+(glow * 0.85 * proj.fog).toFixed(3)})`;
-                    ctx.shadowColor = `rgb(${CURR_R},${CURR_G},${CURR_B})`;
-                    ctx.shadowBlur  = glow * 12 * proj.t;
-                    ctx.lineWidth   = 0.7 + glow * proj.t * 1.2;
+                    ctx.strokeStyle = `rgba(${glowState.r},${glowState.g},${glowState.b},${+(glowState.intensity * 0.85 * proj.fog).toFixed(3)})`;
+                    ctx.shadowColor = `rgb(${glowState.r},${glowState.g},${glowState.b})`;
+                    ctx.shadowBlur  = glowState.intensity * 12 * proj.t;
+                    ctx.lineWidth   = 0.7 + glowState.intensity * proj.t * 1.2;
                     ctx.stroke();
                     ctx.shadowBlur  = 0;
                 }
@@ -369,12 +407,12 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = 1; i < segs.length; i++) ctx.lineTo(segs[i].x, segs[i].y);
 
             // Thicker and more opaque when closer to the viewer.
-            ctx.strokeStyle = `rgba(${CURR_R},${CURR_G},${CURR_B},${+(0.50 + head.fog * 0.38).toFixed(3)})`;
-            ctx.lineWidth   = 1.0 + head.t * 2.5;
+            ctx.strokeStyle = `rgba(${pulse.r},${pulse.g},${pulse.b},${+(0.50 + head.fog * 0.38).toFixed(3)})`;
+            ctx.lineWidth   = (1.0 + head.t * 2.5) * (pulse.thicknessFactor || 1.0);
             ctx.lineCap     = 'round';
             ctx.lineJoin    = 'round';
-            ctx.shadowColor = `rgb(${CURR_R},${CURR_G},${CURR_B})`;
-            ctx.shadowBlur  = 8 * head.t;
+            ctx.shadowColor = `rgb(${pulse.r},${pulse.g},${pulse.b})`;
+            ctx.shadowBlur  = 8 * head.t * (pulse.thicknessFactor || 1.0);
             ctx.stroke();
             ctx.shadowBlur  = 0;
         }
