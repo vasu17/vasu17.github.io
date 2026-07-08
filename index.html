@@ -18,6 +18,21 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- MathJax for rendering physics equations -->
+    <script>
+    window.MathJax = {
+      tex: {
+        macros: {
+          de: "\\mathrm{d}",
+          ee: "\\mathrm{e}",
+          Tr: "\\mathrm{Tr}"
+        }
+      }
+    };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 <body>
@@ -191,6 +206,40 @@
             </div>
         </section>
     </main>
+
+    <footer class="theory-footer">
+        <div class="theory-controls-container">
+            <div class="theory-equation">
+\begin{equation}
+    \mathcal{Z} = \int \de U\de V\exp{\left[-\Tr\left(U^2+V^2-2cUV+\frac{g\ee^{H}}{N}U^4+\frac{g\ee^{-H}}{N}V^4\right)\right]}
+\end{equation}
+            </div>
+            <div class="pixel-legend">
+                <div class="legend-item">
+                    <span class="legend-dot legend-dot--u"></span>
+                    <span class="legend-text">Matrix \(U\) (Spin Up Active, \(S_i = +1\))</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot legend-dot--v"></span>
+                    <span class="legend-text">Matrix \(V\) (Spin Down Active, \(S_i = -1\))</span>
+                </div>
+            </div>
+            <div class="controls-grid">
+                <div class="control-card">
+                    <span class="control-label">Coupling \(c\)</span>
+                    <input type="range" id="slider-c" min="0.0" max="1.0" step="0.01" value="0.0">
+                    <input type="number" id="input-c" class="control-input" min="0.0" max="1.0" step="0.01" value="0.00">
+                </div>
+
+                <div class="control-card">
+                    <span class="control-label">Magnetic Field \(H\)</span>
+                    <input type="range" id="slider-h" min="-0.5" max="0.5" step="0.01" value="0.0">
+                    <input type="number" id="input-h" class="control-input" min="-0.5" max="0.5" step="0.01" value="0.00">
+                </div>
+        </div>
+    </footer>
+
+    <button id="bg-info-btn" class="floating-info-btn">What's in the background?</button>
 
 
     <script src="script.js"></script>

@@ -1,0 +1,12 @@
+{
+  "name": "vasu-github-io",
+  "version": "1.0.0",
+  "description": "Personal website with 2-matrix model background simulation",
+  "scripts": {
+    "start": "npx -y serve . -p 3000 --no-clipboard",
+    "dev": "npx -y serve . -p 3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
